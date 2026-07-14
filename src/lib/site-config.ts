@@ -9,7 +9,7 @@ export const siteConfig = {
   tagline: "Texas Medicaid, Made Understandable",
   description:
     "The most comprehensive resource for Texas Medicaid planning, eligibility, and applications — helping families, healthcare facilities, and referral partners navigate the process with confidence.",
-  url: "https://medicaidfilingconnection.example.com",
+  url: "https://tejaskor.github.io/Medicaid-Filing",
   locale: "en-US",
   serviceArea: "Texas",
   contact: {
