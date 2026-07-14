@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Medicaid Filing Connection — Demo Website
+
+A premium, content-rich authority website concept for **Medicaid Filing Connection**,
+a Texas-based Medicaid planning and application company.
+
+This is a **sample/demo build** created to demonstrate design and engineering
+quality. It implements the client's full vision — information architecture,
+premium editorial design, SEO, a searchable resource library, and lead capture —
+in a modern React stack rather than WordPress.
+
+> Reference bar for quality & feel: Mayo Clinic, Stripe, NerdWallet, Investopedia.
+> Educate first, sell second.
+
+## Tech Stack
+
+| Concern | Choice |
+| --- | --- |
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Components | shadcn/ui (Base UI primitives), Lucide icons |
+| Fonts | Geist Sans / Geist Mono |
+| Forms | react-hook-form + Zod + Sonner toasts |
+| Rendering | Static Site Generation (SSG) for every page |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build (fully static)
+npm start        # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Information Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `/` — Homepage (authority hero, audiences, services, resource teaser, trust, CTA)
+- `/services` + `/services/[slug]` — Services index and detail template
+- `/resources` — **Texas Medicaid Resource Center** (searchable + filterable library)
+- `/resources/[slug]` — Article/guide template
+- `/resources/category/[slug]` — Category pages
+- `/partnerships` — Facility Partnerships (B2B)
+- `/about`, `/faq`, `/contact`, `/schedule` — Core pages
+- `/privacy`, `/terms`, `/accessibility` — Legal
+- `sitemap.xml`, `robots.txt` — generated automatically
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## What's Implemented
 
-## Learn More
+- **Premium, minimal design** — heavy whitespace, refined typography, an
+  accessible medical-teal + emerald palette, light/dark aware tokens.
+- **Real photography** — CC0 (public-domain) imagery on the homepage hero and
+  section blocks, served through `next/image` (auto WebP/AVIF, responsive
+  `srcset`, blur-up placeholders). Swap in client photos by replacing the files
+  in `public/images/` — see `public/images/CREDITS.md`.
+- **Fully responsive**, mobile-first, sticky header with dropdown nav and a
+  mobile sheet menu.
+- **Searchable, filterable Resource Center** (keyword search + topic + type filters).
+- **Lead capture** — validated Contact and Schedule forms with inline errors,
+  loading state, and success toasts. _(Demo only — not wired to a backend.)_
+- **SEO** — per-page metadata & canonicals, Open Graph/Twitter, XML sitemap,
+  robots, and **JSON-LD schema** (Organization, WebSite+SearchAction, Service,
+  Article, FAQPage).
+- **Accessibility** — skip link, semantic landmarks, keyboard-navigable nav,
+  visible focus rings, `aria` labeling, and `prefers-reduced-motion` support.
+- **Performance** — 100% statically prerendered pages for excellent Core Web Vitals.
 
-To learn more about Next.js, take a look at the following resources:
+## Scalability Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Content lives in typed modules under `src/lib/` (`services.ts`, `resources.ts`,
+`faqs.ts`). Each maps cleanly to a CMS collection, so the site is built to scale
+to hundreds of articles. Templates (`[slug]` routes) render any number of items
+via `generateStaticParams`. Future phases (calculators, downloads, client portal,
+AI assistant, referral portal) slot in as new routes/components without rework.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/                    # App Router pages, layout, sitemap, robots
+  components/
+    layout/               # SiteHeader, SiteFooter
+    blocks/               # Composable sections (hero, cards, CTA, forms, library)
+    seo/                  # JSON-LD helper
+    ui/                   # shadcn/ui primitives
+  lib/                    # site-config + typed content (services, resources, faqs)
+```
